@@ -8,8 +8,8 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
 // Components
-import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
+import Header from "./components/Header";
 
 export default class App extends React.Component {
   constructor(props) {
