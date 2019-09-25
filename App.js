@@ -7,6 +7,9 @@ import { Container, Text, Button } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
+// Components
+import Header from "./components/Header";
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +33,8 @@ export default class App extends React.Component {
     }
 
     return (
-      <Container style={styles.container}>
+      <Container>
+        <Header title="Guess number" />
         <Text>Open up App.js to start working on your app!</Text>
       </Container>
     );
