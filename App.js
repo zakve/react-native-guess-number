@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 // Components
 import Header from "./components/Header";
+import StartGameScreen from "./screens/StartGameScreen";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class App extends React.Component {
     return (
       <Container>
         <Header title="Guess number" />
-        <Text>Open up App.js to start working on your app!</Text>
+        <StartGameScreen />
       </Container>
     );
   }

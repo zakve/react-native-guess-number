@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet } from "react-native";
-import { Container, Header, Left, Body, Right, Title } from 'native-base';
+import { Platform, Container, Header, Left, Body, Right, Title } from 'native-base';
 
-export default class HeaderTitle extends Component {
+export default class HeaderTitle extends React.Component {
     render() {
         return (
             <Container>
