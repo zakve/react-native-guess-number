@@ -5,7 +5,7 @@ import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Ic
 export default class CardShow extends React.Component {
     render() {
         return (
-            <Card>
+            <Card style={styles.card}>
                 <CardItem header>
                     <Text>Select a number </Text>
                 </CardItem>
@@ -15,14 +15,13 @@ export default class CardShow extends React.Component {
                             <Input />
                         </Item>
                         <View style={styles.buttonContainer}>
-                            <Button transparent danger style={styles.button} onPress={() => { console.log("Reset!") }}>
+                            <Button bordered danger style={styles.button} onPress={() => { console.log("Reset!") }}>
                                 <Text>Reset</Text>
                             </Button>
                             <Button success style={styles.button} onPress={() => { console.log("Confirm") }}>
                                 <Text>Confirm</Text>
                             </Button>
                         </View>
-
                     </Body>
                 </CardItem>
             </Card>
@@ -31,12 +30,13 @@ export default class CardShow extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        width: '80%',
-        justifyContent: "center",
-        alignItems: "center"
+    card: {
+        width: '90%'
     },
-    button: {
-        width: 200
-    }
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        width: '100%',
+        paddingTop: 20
+    },
 })
