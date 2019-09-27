@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppLoading } from 'expo';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // UI native-base
 import { Container, Text, Button } from 'native-base';
@@ -34,10 +34,14 @@ export default class App extends React.Component {
     }
 
     return (
-      <Container>
-        <Header title="Guess number" />
-        <StartGameScreen />
-      </Container>
+      <TouchableWithoutFeedback onPress={() => {
+        Keyboard.dismiss();
+      }}>
+        <Container>
+          <Header title="Guess number" />
+          <StartGameScreen />
+        </Container>
+      </TouchableWithoutFeedback>
     );
   }
 }
