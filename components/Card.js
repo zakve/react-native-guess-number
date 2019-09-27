@@ -5,7 +5,7 @@ import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Ic
 export default class CardShow extends React.Component {
     render() {
         return (
-            <Card style={styles.card}>
+            <Card style={{ ...styles.card, ...this.props.style }}>
                 <CardItem header>
                     <Text>Select a number </Text>
                 </CardItem>
@@ -30,9 +30,6 @@ export default class CardShow extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    card: {
-        width: '90%'
-    },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",

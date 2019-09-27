@@ -10,7 +10,7 @@ export default class StartGameScreen extends React.Component {
         return (
             <View style={styles.screen}>
                 <H2 style={styles.title}>Start a New Game!</H2>
-                <Card />
+                <Card style={styles.card} />
             </View>
         );
     }
@@ -26,5 +26,8 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         paddingBottom: 15
+    },
+    card: {
+        width: '90%'
     }
 })
