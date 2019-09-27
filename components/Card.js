@@ -7,8 +7,20 @@ export default class CardShow extends React.Component {
         super(props);
 
         this.state = {
-            enteredValue: ''
+            enteredValue: '',
+            selectedNumber: 0,
+            confirmed: false
         }
+    }
+
+    confirmInputHandler() {
+        console.log(parseInt(this.state.enteredValue));
+        const chosenNumber = parseInt(this.state.enteredValue);
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            return;
+        };
+        this.setState({ selectedNumber: chosenNumber });
+        this.setState({ confirmed: true });
     }
 
     render() {
@@ -32,12 +44,13 @@ export default class CardShow extends React.Component {
                             <Button bordered danger style={styles.button} onPress={() => this.setState({ enteredValue: '' })}>
                                 <Text>Reset</Text>
                             </Button>
-                            <Button success style={styles.button} onPress={() => { console.log("Confirm") }}>
+                            <Button success style={styles.button} onPress={() => { this.confirmInputHandler() }}>
                                 <Text>Confirm</Text>
                             </Button>
                         </View>
                     </Body>
                 </CardItem>
+                {this.state.confirmed ? <Text style={styles.choosenNumber}>Chosen Number: {this.state.selectedNumber}</Text> : <Text></Text>}
             </Card>
         );
     }
@@ -52,5 +65,10 @@ const styles = StyleSheet.create({
     },
     input: {
         textAlign: 'center'
+    },
+    choosenNumber: {
+        textAlign: 'center',
+        fontSize: 20,
+        paddingVertical: 10
     }
 })
