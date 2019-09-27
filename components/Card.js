@@ -14,7 +14,6 @@ export default class CardShow extends React.Component {
     }
 
     confirmInputHandler() {
-        console.log(parseInt(this.state.enteredValue));
         const chosenNumber = parseInt(this.state.enteredValue);
         if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
             return;
