@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Form, Item, Input, Label, View } from 'native-base';
+import { Card, CardItem, Text, Button, Body, Item, Input, View } from 'native-base';
 
 export default class CardShow extends React.Component {
     render() {
@@ -12,7 +12,7 @@ export default class CardShow extends React.Component {
                 <CardItem>
                     <Body>
                         <Item floatingLabel>
-                            <Input />
+                            <Input style={styles.input} keyboardType="number-pad" maxLength={2} />
                         </Item>
                         <View style={styles.buttonContainer}>
                             <Button bordered danger style={styles.button} onPress={() => { console.log("Reset!") }}>
@@ -36,4 +36,7 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingTop: 20
     },
+    input: {
+        textAlign: 'center'
+    }
 })
