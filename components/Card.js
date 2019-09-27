@@ -29,7 +29,7 @@ export default class CardShow extends React.Component {
                                 maxLength={2} />
                         </Item>
                         <View style={styles.buttonContainer}>
-                            <Button bordered danger style={styles.button} onPress={() => { console.log("Reset!") }}>
+                            <Button bordered danger style={styles.button} onPress={() => this.setState({ enteredValue: '' })}>
                                 <Text>Reset</Text>
                             </Button>
                             <Button success style={styles.button} onPress={() => { console.log("Confirm") }}>
