@@ -50,7 +50,14 @@ export default class CardShow extends React.Component {
                         </View>
                     </Body>
                 </CardItem>
-                {this.state.confirmed ? <Text style={styles.choosenNumber}>Chosen Number: {this.state.selectedNumber}</Text> : <Text></Text>}
+                {this.state.confirmed ?
+                    <View>
+                        <Text style={styles.choosenNumber}>Chosen Number: {this.state.selectedNumber}</Text>
+                        <Button>
+                            <Text>Start game</Text>
+                        </Button>
+                    </View>
+                    : <Text></Text>}
             </Card>
         );
     }
