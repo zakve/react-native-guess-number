@@ -17,6 +17,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isReady: false,
+      userNumber: 0
     };
   }
 
@@ -29,9 +30,19 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
+  startGameHandler(selectedNumber) {
+    this.setState({ userNumber: selectedNumber })
+  }
+
   render() {
     if (!this.state.isReady) {
       return <AppLoading />;
+    }
+
+    let content = <StartGameScreen onStartGame={this.startGameHandler} />;
+
+    if (this.userNumber) {
+      content = <GameScreen />
     }
 
     return (
@@ -40,8 +51,7 @@ export default class App extends React.Component {
       }}>
         <Container>
           <Header title="Guess number" />
-          <StartGameScreen />
-          <GameScreen />
+          {content}
         </Container>
       </TouchableWithoutFeedback>
     );

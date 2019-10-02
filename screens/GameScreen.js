@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from 'react-native';
-import { View, Text } from 'native-base';
+import { Card, Text, Button, View } from 'native-base';
 
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
@@ -23,9 +23,35 @@ export default class GameScreen extends React.Component {
 
     render() {
         return (
-            <View>
-                <Text>{this.state.currentGuess}</Text>
-            </View>
+            <Card style={styles.screen}>
+                <Text>Opponent's Guess: {this.state.currentGuess}</Text>
+                <View style={styles.buttonContainer}>
+                    <Button>
+                        <Text>Lower</Text>
+                    </Button>
+                    <Button>
+                        <Text>Greater</Text>
+                    </Button>
+                </View>
+            </Card>
+
         )
     }
 }
+
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        flexDirection: 'column',
+        padding: 10,
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        margin: 10,
+        height: 200,
+        width: '90%'
+
+    }
+})
