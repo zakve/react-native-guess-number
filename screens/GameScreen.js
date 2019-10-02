@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from 'react-native';
-import { View } from 'native-base';
+import { View, Text } from 'native-base';
 
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
@@ -17,7 +17,15 @@ export default class GameScreen extends React.Component {
         super(props);
 
         this.state = {
-            currentGuess: this.generateRandomBetween(1, 100, props.userChoice)
+            currentGuess: generateRandomBetween(1, 100, props.userChoice)
         }
+    }
+
+    render() {
+        return (
+            <View>
+                <Text>{this.state.currentGuess}</Text>
+            </View>
+        )
     }
 }
