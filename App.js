@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppLoading } from 'expo';
 import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
@@ -30,7 +30,7 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
-  startGameHandler(selectedNumber) {
+  startGameHandler = (selectedNumber) => {
     this.setState({ userNumber: selectedNumber })
   }
 
@@ -41,8 +41,8 @@ export default class App extends React.Component {
 
     let content = <StartGameScreen onStartGame={this.startGameHandler} />;
 
-    if (this.userNumber) {
-      content = <GameScreen />
+    if (this.state.userNumber) {
+      content = <GameScreen userChoice={this.state.userNumber} />
     }
 
     return (

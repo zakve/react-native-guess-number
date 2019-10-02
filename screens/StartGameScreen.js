@@ -59,7 +59,7 @@ export default class StartGameScreen extends React.Component {
                     {this.state.confirmed ?
                         <View>
                             <Text style={styles.choosenNumber}>Chosen Number: {this.state.selectedNumber}</Text>
-                            <Button>
+                            <Button onPress={() => this.props.onStartGame(this.state.selectedNumber)}>
                                 <Text>Start game</Text>
                             </Button>
                         </View>
