@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { Card, CardItem, Text, Button, Body, Item, Input, View } from 'native-base';
 
 export default class CardShow extends React.Component {
@@ -16,6 +16,7 @@ export default class CardShow extends React.Component {
     confirmInputHandler() {
         const chosenNumber = parseInt(this.state.enteredValue);
         if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert('Invalid number!', 'Number has to be a number between 1 and 99.', [{ text: 'Okay', style: 'destructive', onPress: this.resetInputHanderl }])
             return;
         };
         this.setState({ selectedNumber: chosenNumber });
