@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, Keyboard } from 'react-native';
 import { Card, CardItem, Text, Button, Body, Item, Input, View } from 'native-base';
 
 export default class CardShow extends React.Component {
@@ -21,6 +21,8 @@ export default class CardShow extends React.Component {
         };
         this.setState({ selectedNumber: chosenNumber });
         this.setState({ confirmed: true });
+        this.setState({ enteredValue: '' });
+        Keyboard.dismiss();
     }
 
     render() {
