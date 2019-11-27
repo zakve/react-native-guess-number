@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, Alert } from 'react-native';
 import { Card, Text, Button, View } from 'native-base';
 
@@ -13,47 +13,56 @@ const generateRandomBetween = (min, max, exclude) => {
     }
 }
 
-export default class GameScreen extends React.Component {
-    constructor(props) {
-        super(props);
+const GameScreen = props => {
 
-        this.state = {
-            currentGuess: generateRandomBetween(1, 100, props.userChoice),
-            currentLow: 0,
-            currentHigh: 100
+    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+    const currentLow = useRef(1);
+    const currentHigh = useRef(100);
+
+    /*useEffect(() => {
+        if (currentGuess === props.userChoice) {
+            
         }
-    }
+    });*/
 
-    nextGuessHandler = direction => {
-        if ((direction === 'lower' && this.state.currentGuess < this.props.userChoice) || (direction === 'greater') && this.state.currentGuess > this.props.userChoice) {
-            Alert.alert('Don\'t cheat!', 'You know that this is wrong...', [{ text: 'Sorry!' }]);
+    const nextGuessHandler = direction => {
+        if (
+            (direction === 'lower' && currentGuess < props.userChoice) ||
+            (direction === 'greater' && currentGuess > props.userChoice)
+        ) {
+            Alert.alert("Don't lie!", 'You know that this is wrong...', [
+                { text: 'Sorry!', style: 'cancel' }
+            ]);
             return;
         }
         if (direction === 'lower') {
-            this.setState({ currentHigh: this.state.currentGuess });
-            this.state.currentGuess = generateRandomBetween(this.state.currentLow, this.state.currentHigh, this.state.currentGuess);
+            currentHigh.current = currentGuess;
         } else {
-            this.setState({ currentLow: this.state.currentGuess });
-            this.state.currentGuess = generateRandomBetween(this.state.currentLow, this.state.currentHigh, this.state.currentGuess);
+            currentLow.current = currentGuess;
         }
-    }
+        const nextNumber = generateRandomBetween(
+            currentLow.current,
+            currentHigh.current,
+            currentGuess
+        );
+        setCurrentGuess(nextNumber);
+        //setRounds(curRounds => curRounds + 1);
+    };
 
-    render() {
-        return (
-            <Card style={styles.screen}>
-                <Text>Opponent's Guess: {this.state.currentGuess}</Text>
-                <View style={styles.buttonContainer}>
-                    <Button onPress={this.nextGuessHandler.bind(this, 'lower')}>
-                        <Text>Lower</Text>
-                    </Button>
-                    <Button onPress={this.nextGuessHandler.bind(this, 'greater')}>
-                        <Text>Greater</Text>
-                    </Button>
-                </View>
-            </Card>
+    return (
+        <Card style={styles.screen}>
+            <Text>Opponent's Guess: {currentGuess}</Text>
+            <View style={styles.buttonContainer}>
+                <Button onPress={nextGuessHandler.bind(this, 'lower')}>
+                    <Text>Lower</Text>
+                </Button>
+                <Button onPress={nextGuessHandler.bind(this, 'greater')}>
+                    <Text>Greater</Text>
+                </Button>
+            </View>
+        </Card>
 
-        )
-    }
+    )
 }
 
 const styles = StyleSheet.create({
@@ -72,3 +81,5 @@ const styles = StyleSheet.create({
 
     }
 })
+
+export default GameScreen;
