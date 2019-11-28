@@ -32,9 +32,13 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
+  configureNewGameHandler = () => {
+    this.setState({ guessRounds: 0 })
+    this.setState({ userNumber: null });
+  }
+
   startGameHandler = (selectedNumber) => {
     this.setState({ userNumber: selectedNumber });
-    this.setState({ guessRounds: 0 })
   }
 
   gameOverHandler = numOfRounds => {
@@ -51,7 +55,7 @@ export default class App extends React.Component {
     if (this.state.userNumber && this.state.guessRounds <= 0) {
       content = <GameScreen userChoice={this.state.userNumber} onGameOver={this.gameOverHandler} />;
     } else if (this.state.guessRounds > 0) {
-      content = <GameOverScreen />
+      content = <GameOverScreen roundsNumber={this.state.guessRounds} userNumber={this.state.userNumber} onRestart={this.configureNewGameHandler} />
     }
 
     return (
