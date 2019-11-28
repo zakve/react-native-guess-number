@@ -30,8 +30,6 @@ const GameScreen = props => {
     // game logic
     const nextGuessHandler = direction => {
         // cheating validation
-        console.log(`currentGuess: ${currentGuess}`);
-        console.log(`props.userChoice: ${props.userChoice}`);
         if (
             (direction === 'lower' && currentGuess < props.userChoice) ||
             (direction === 'greater' && currentGuess > props.userChoice)
@@ -57,11 +55,6 @@ const GameScreen = props => {
         );
         setCurrentGuess(nextNumber);
         setRounds(curRounds => curRounds + 1);
-
-        /* console.log(`direction: ${direction}`);
-        console.log(`currentLow.current: ${currentLow.current}`);
-        console.log(`currentHigh.current: ${currentHigh.current}`);
-        console.log(`currentGuess: ${currentGuess}`); */
     };
 
     return (
