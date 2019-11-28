@@ -14,18 +14,24 @@ const generateRandomBetween = (min, max, exclude) => {
 }
 
 const GameScreen = props => {
-
     const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
+    const [rounds, setRounds] = useState(0);
+    const { userChoice, onGameOver } = props;
 
-    /*useEffect(() => {
+    // game over chceck
+    useEffect(() => {
         if (currentGuess === props.userChoice) {
-            
+            props.onGameOver(rounds);
         }
-    });*/
+    }, [currentGuess, userChoice, onGameOver]);
 
+    // game logic
     const nextGuessHandler = direction => {
+        // cheating validation
+        console.log(`currentGuess: ${currentGuess}`);
+        console.log(`props.userChoice: ${props.userChoice}`);
         if (
             (direction === 'lower' && currentGuess < props.userChoice) ||
             (direction === 'greater' && currentGuess > props.userChoice)
@@ -35,18 +41,27 @@ const GameScreen = props => {
             ]);
             return;
         }
+
+        // 
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
             currentLow.current = currentGuess;
         }
+
+        // generate next number
         const nextNumber = generateRandomBetween(
             currentLow.current,
             currentHigh.current,
             currentGuess
         );
         setCurrentGuess(nextNumber);
-        //setRounds(curRounds => curRounds + 1);
+        setRounds(curRounds => curRounds + 1);
+
+        /* console.log(`direction: ${direction}`);
+        console.log(`currentLow.current: ${currentLow.current}`);
+        console.log(`currentHigh.current: ${currentHigh.current}`);
+        console.log(`currentGuess: ${currentGuess}`); */
     };
 
     return (

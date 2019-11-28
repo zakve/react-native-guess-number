@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 // Components
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
+import GameOverScreen from "./screens/GameOverScreen";
 import Header from "./components/Header";
 
 export default class App extends React.Component {
@@ -17,7 +18,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isReady: false,
-      userNumber: 0
+      userNumber: 0,
+      guessRounds: 0
     };
   }
 
@@ -31,7 +33,12 @@ export default class App extends React.Component {
   }
 
   startGameHandler = (selectedNumber) => {
-    this.setState({ userNumber: selectedNumber })
+    this.setState({ userNumber: selectedNumber });
+    this.setState({ guessRounds: 0 })
+  }
+
+  gameOverHandler = numOfRounds => {
+    this.setState({ guessRounds: numOfRounds })
   }
 
   render() {
@@ -41,8 +48,10 @@ export default class App extends React.Component {
 
     let content = <StartGameScreen onStartGame={this.startGameHandler} />;
 
-    if (this.state.userNumber) {
-      content = <GameScreen userChoice={this.state.userNumber} />
+    if (this.state.userNumber && this.state.guessRounds <= 0) {
+      content = <GameScreen userChoice={this.state.userNumber} onGameOver={this.gameOverHandler} />;
+    } else if (this.state.guessRounds > 0) {
+      content = <GameOverScreen />
     }
 
     return (
