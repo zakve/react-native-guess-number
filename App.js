@@ -13,62 +13,57 @@ import GameScreen from "./screens/GameScreen";
 import GameOverScreen from "./screens/GameOverScreen";
 import Header from "./components/Header";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isReady: false,
-      userNumber: 0,
-      guessRounds: 0
-    };
+const fetchFonts = () => Font.loadAsync({
+  Roboto: require('native-base/Fonts/Roboto.ttf'),
+  Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+  ...Ionicons.font,
+});
+
+export default function App() {
+  const [guessRounds, setGuessRounds] = useState(0);
+  const [userNumber, setUserNumber] = useState();
+  const [isReady, setIsReady] = useState(false);
+
+  if (!isReady) {
+    return <AppLoading
+      startAsync={fetchFonts}
+      onFinish={() => setIsReady(true)}
+      onError={(err) => console.log(err)}
+    />;
   }
 
-  async componentDidMount() {
-    await Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      ...Ionicons.font,
-    });
-    this.setState({ isReady: true });
+  const configureNewGameHandler = () => {
+    setGuessRounds(0);
+    setUserNumber(null);
   }
 
-  configureNewGameHandler = () => {
-    this.setState({ guessRounds: 0 })
-    this.setState({ userNumber: null });
+  const startGameHandler = (selectedNumber) => {
+    setUserNumber(selectedNumber);
   }
 
-  startGameHandler = (selectedNumber) => {
-    this.setState({ userNumber: selectedNumber });
+  const gameOverHandler = numOfRounds => {
+    setGuessRounds(numOfRounds)
   }
 
-  gameOverHandler = numOfRounds => {
-    this.setState({ guessRounds: numOfRounds })
+  // Content condition
+  let content = <StartGameScreen onStartGame={startGameHandler} />;
+
+  if (userNumber && guessRounds <= 0) {
+    content = <GameScreen userChoice={userNumber} onGameOver={gameOverHandler} />;
+  } else if (guessRounds > 0) {
+    content = <GameOverScreen roundsNumber={guessRounds} userNumber={userNumber} onRestart={configureNewGameHandler} />
   }
 
-  render() {
-    if (!this.state.isReady) {
-      return <AppLoading />;
-    }
-
-    let content = <StartGameScreen onStartGame={this.startGameHandler} />;
-
-    if (this.state.userNumber && this.state.guessRounds <= 0) {
-      content = <GameScreen userChoice={this.state.userNumber} onGameOver={this.gameOverHandler} />;
-    } else if (this.state.guessRounds > 0) {
-      content = <GameOverScreen roundsNumber={this.state.guessRounds} userNumber={this.state.userNumber} onRestart={this.configureNewGameHandler} />
-    }
-
-    return (
-      <TouchableWithoutFeedback onPress={() => {
-        Keyboard.dismiss();
-      }}>
-        <Container>
-          <Header title="Guess number" />
-          {content}
-        </Container>
-      </TouchableWithoutFeedback>
-    );
-  }
+  return (
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+    }}>
+      <Container>
+        <Header title="Guess number" />
+        {content}
+      </Container>
+    </TouchableWithoutFeedback>
+  );
 }
 
 const styles = StyleSheet.create({
