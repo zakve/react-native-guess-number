@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { Card, Text, Button, View } from 'native-base';
 
 const GameOverScreen = props => {
     return (
         <View style={styles.screen}>
             <Text>The Game is over!</Text>
+            <Image source={require('../assets/img/success.png')} />
             <Text>Number of rounds: {props.roundsNumber}</Text>
             <Text>Number was: {props.userNumber}</Text>
             <Button onPress={props.onRestart}>
