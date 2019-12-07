@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, Alert } from 'react-native';
 import { Card, Text, Button, View } from 'native-base';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
@@ -62,9 +63,11 @@ const GameScreen = props => {
             <Text>Opponent's Guess: {currentGuess}</Text>
             <View style={styles.buttonContainer}>
                 <Button onPress={nextGuessHandler.bind(this, 'lower')}>
+                    <MaterialCommunityIcons name="arrow-down-bold" size={24} color="white" style={styles.icon} />
                     <Text>Lower</Text>
                 </Button>
                 <Button onPress={nextGuessHandler.bind(this, 'greater')}>
+                    <MaterialCommunityIcons name="arrow-up-bold" size={24} color="white" style={styles.icon} />
                     <Text>Greater</Text>
                 </Button>
             </View>
@@ -86,7 +89,9 @@ const styles = StyleSheet.create({
         margin: 10,
         height: 200,
         width: '90%'
-
+    },
+    icon: {
+        marginHorizontal: 10
     }
 })
 
