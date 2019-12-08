@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, Alert } from 'react-native';
-import { Card, Text, Button, View } from 'native-base';
+import { StyleSheet, Alert, ScrollView } from 'react-native';
+import { Card, Text, Button, View, List, ListItem } from 'native-base';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -15,16 +15,17 @@ const generateRandomBetween = (min, max, exclude) => {
 }
 
 const GameScreen = props => {
-    const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+    const initialGuess = generateRandomBetween(1, 100, props.userChoice);
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
-    const [rounds, setRounds] = useState(0);
+    const [pastGuesses, setPastGuesses] = useState([initialGuess]);
     const { userChoice, onGameOver } = props;
 
     // game over chceck
     useEffect(() => {
         if (currentGuess === props.userChoice) {
-            props.onGameOver(rounds);
+            props.onGameOver(pastGuesses.length);
         }
     }, [currentGuess, userChoice, onGameOver]);
 
@@ -45,7 +46,7 @@ const GameScreen = props => {
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         }
 
         // generate next number
@@ -55,33 +56,52 @@ const GameScreen = props => {
             currentGuess
         );
         setCurrentGuess(nextNumber);
-        setRounds(curRounds => curRounds + 1);
+        setPastGuesses(curPastGuesses => [nextNumber, ...curPastGuesses]);
     };
 
     return (
-        <Card style={styles.screen}>
-            <Text>Opponent's Guess: {currentGuess}</Text>
-            <View style={styles.buttonContainer}>
-                <Button onPress={nextGuessHandler.bind(this, 'lower')}>
-                    <MaterialCommunityIcons name="arrow-down-bold" size={24} color="white" style={styles.icon} />
-                    <Text>Lower</Text>
-                </Button>
-                <Button onPress={nextGuessHandler.bind(this, 'greater')}>
-                    <MaterialCommunityIcons name="arrow-up-bold" size={24} color="white" style={styles.icon} />
-                    <Text>Greater</Text>
-                </Button>
+        <>
+            <Card style={styles.card}>
+                <Text>Opponent's Guess: {currentGuess}</Text>
+                <View style={styles.buttonContainer}>
+                    <Button onPress={nextGuessHandler.bind(this, 'lower')}>
+                        <MaterialCommunityIcons name="arrow-down-bold" size={24} color="white" style={styles.icon} />
+                        <Text>Lower</Text>
+                    </Button>
+                    <Button onPress={nextGuessHandler.bind(this, 'greater')}>
+                        <MaterialCommunityIcons name="arrow-up-bold" size={24} color="white" style={styles.icon} />
+                        <Text>Greater</Text>
+                    </Button>
+                </View>
+            </Card>
+            <View style={styles.listContainer}>
+                <ScrollView contentContainerStyle={styles.list}>
+                    <List>
+                        {pastGuesses.map((guess, numOfRound) => <ListItem key={numOfRound} style={styles.listContent}><Text>#{numOfRound}</Text><Text>{guess}</Text></ListItem>)}
+                    </List>
+                </ScrollView>
             </View>
-        </Card>
 
+        </>
     )
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
+    card: {
+        height: 120,
         flexDirection: 'column',
         padding: 10,
         alignItems: 'center',
+    },
+    listContainer: {
+        flex: 1,
+        //width: '80%',
+    },
+    list: {
+        //alignItems: 'center'
+    },
+    listContent: {
+        justifyContent: 'space-between'
     },
     buttonContainer: {
         flexDirection: 'row',
