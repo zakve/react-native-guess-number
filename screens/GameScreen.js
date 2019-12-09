@@ -77,7 +77,7 @@ const GameScreen = props => {
             <View style={styles.listContainer}>
                 <ScrollView contentContainerStyle={styles.list}>
                     <List>
-                        {pastGuesses.map((guess, numOfRound) => <ListItem key={numOfRound} style={styles.listContent}><Text>#{numOfRound}</Text><Text>{guess}</Text></ListItem>)}
+                        {pastGuesses.map((guess, index) => <ListItem key={index} style={styles.listContent}><Text>#{index + 1}</Text><Text>{guess}</Text></ListItem>)}
                     </List>
                 </ScrollView>
             </View>
