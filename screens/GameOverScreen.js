@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { Card, Text, Button, View, H1, } from 'native-base';
 
 const GameOverScreen = props => {
     return (
-        <View style={styles.screen}>
-            <H1>The Game is over!</H1>
-            <View style={styles.imageContainer}>
-                <Image source={require('../assets/img/success.png')} style={styles.image} />
+        <ScrollView>
+            <View style={styles.screen}>
+                <H1>The Game is over!</H1>
+                <View style={styles.imageContainer}>
+                    <Image source={require('../assets/img/success.png')} style={styles.image} />
+                </View>
+                <Text>Your phone needed {props.roundsNumber} rounds to guess the number {props.userNumber}.</Text>
+                <Button style={styles.btn} onPress={props.onRestart}>
+                    <Text>Restart game</Text>
+                </Button>
             </View>
-            <Text>Your phone needed {props.roundsNumber} rounds to guess the number {props.userNumber}.</Text>
-            <Button style={styles.btn} onPress={props.onRestart}>
-                <Text>Restart game</Text>
-            </Button>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -25,9 +27,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     imageContainer: {
-        width: '80%',
-        height: 300,
-        borderRadius: 200,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').width * 0.7,
+        borderRadius: Dimensions.get('window').width * 0.7 / 2,
         borderWidth: 3,
         borderColor: 'black',
         overflow: 'hidden',
