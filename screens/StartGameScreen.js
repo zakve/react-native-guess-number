@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Alert, Keyboard } from "react-native";
+import { StyleSheet, Alert, Keyboard, ScrollView, KeyboardAvoidingView } from "react-native";
 import { Text, View, H2, Card, CardItem, Button, Body, Item, Input } from 'native-base';
 
 // Components
@@ -33,43 +33,47 @@ const StartGameScreen = props => {
     };
 
     return (
-        <View style={styles.screen}>
-            <H2 style={styles.title}>Start a New Game!</H2>
-            <Card style={{ ...styles.card, ...props.style }}>
-                <CardItem header>
-                    <Text>Select a number </Text>
-                </CardItem>
-                <CardItem>
-                    <Body>
-                        <Item floatingLabel>
-                            <Input
-                                style={styles.input}
-                                autoFocus={true}
-                                value={enteredValue}
-                                onChangeText={(enteredValue) => setEnteredValue(enteredValue)}
-                                keyboardType="number-pad"
-                                maxLength={2} />
-                        </Item>
-                        <View style={styles.buttonContainer}>
-                            <Button bordered danger style={styles.button} onPress={resetInputHandler}>
-                                <Text>Reset</Text>
-                            </Button>
-                            <Button success style={styles.button} onPress={confirmInputHandler}>
-                                <Text>Confirm</Text>
-                            </Button>
-                        </View>
-                    </Body>
-                </CardItem>
-                {confirmed ?
-                    <View>
-                        <Text style={styles.choosenNumber}>Chosen Number: {selectedNumber}</Text>
-                        <Button onPress={() => props.onStartGame(selectedNumber)}>
-                            <Text>Start game</Text>
-                        </Button>
-                    </View>
-                    : <View></View>}
-            </Card>
-        </View>
+        <ScrollView>
+            <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={30}>
+                <View style={styles.screen}>
+                    <H2 style={styles.title}>Start a New Game!</H2>
+                    <Card style={{ ...styles.card, ...props.style }}>
+                        <CardItem header>
+                            <Text>Select a number </Text>
+                        </CardItem>
+                        <CardItem>
+                            <Body>
+                                <Item floatingLabel>
+                                    <Input
+                                        style={styles.input}
+                                        autoFocus={true}
+                                        value={enteredValue}
+                                        onChangeText={(enteredValue) => setEnteredValue(enteredValue)}
+                                        keyboardType="number-pad"
+                                        maxLength={2} />
+                                </Item>
+                                <View style={styles.buttonContainer}>
+                                    <Button bordered danger style={styles.button} onPress={resetInputHandler}>
+                                        <Text>Reset</Text>
+                                    </Button>
+                                    <Button success style={styles.button} onPress={confirmInputHandler}>
+                                        <Text>Confirm</Text>
+                                    </Button>
+                                </View>
+                            </Body>
+                        </CardItem>
+                        {confirmed ?
+                            <View>
+                                <Text style={styles.choosenNumber}>Chosen Number: {selectedNumber}</Text>
+                                <Button onPress={() => props.onStartGame(selectedNumber)}>
+                                    <Text>Start game</Text>
+                                </Button>
+                            </View>
+                            : <View></View>}
+                    </Card>
+                </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     );
 }
 
