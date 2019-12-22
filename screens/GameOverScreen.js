@@ -3,11 +3,33 @@ import { StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { Card, Text, Button, View, H1, } from 'native-base';
 
 const GameOverScreen = props => {
+    const [availableDeviceWidth, setAvailableDeviceWidth] = useState(Dimensions.get('window').width)
+    const [availableDeviceHeight, setAvailableDeviceHeight] = useState(Dimensions.get("window").height)
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setAvailableDeviceWidth(Dimensions.get('window').width);
+            setAvailableDeviceHeight(Dimensions.get('window').height);
+        };
+
+        Dimensions.addEventListener('change', updateLayout);
+
+        return () => {
+            Dimensions.addEventListener("change", updateLayout)
+        }
+    })
     return (
         <ScrollView>
             <View style={styles.screen}>
                 <H1>The Game is over!</H1>
-                <View style={styles.imageContainer}>
+                <View style={{
+                    ...styles.imageContainer, ...{
+                        width: availableDeviceWidth * 0.7,
+                        height: availableDeviceWidth * 0.7,
+                        borderRadius: (availableDeviceWidth * 0.7) / 2,
+                        marginVertical: availableDeviceHeight / 30,
+                    }
+                }}>
                     <Image source={require('../assets/img/success.png')} style={styles.image} />
                 </View>
                 <Text>Your phone needed {props.roundsNumber} rounds to guess the number {props.userNumber}.</Text>
@@ -21,19 +43,15 @@ const GameOverScreen = props => {
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1,
+        //flex: 1,
         flexDirection: 'column',
         padding: 10,
         alignItems: 'center',
     },
     imageContainer: {
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').width * 0.7,
-        borderRadius: Dimensions.get('window').width * 0.7 / 2,
         borderWidth: 3,
         borderColor: 'black',
         overflow: 'hidden',
-        marginVertical: 30
     },
     image: {
         width: '100%',
