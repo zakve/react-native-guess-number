@@ -55,14 +55,10 @@ export default function App() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-      <Container>
-        <Header title="Guess number" />
-        {content}
-      </Container>
-    </TouchableWithoutFeedback>
+    <Container>
+      <Header title="Guess number" />
+      {content}
+    </Container>
   );
 }
 
