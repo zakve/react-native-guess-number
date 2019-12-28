@@ -6,6 +6,7 @@ const GameOverScreen = props => {
     const [availableDeviceWidth, setAvailableDeviceWidth] = useState(Dimensions.get('window').width)
     const [availableDeviceHeight, setAvailableDeviceHeight] = useState(Dimensions.get("window").height)
 
+    // Dynamic responsivity calculation
     useEffect(() => {
         const updateLayout = () => {
             setAvailableDeviceWidth(Dimensions.get('window').width);

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Alert, Keyboard, ScrollView, KeyboardAvoidingView } from "react-native";
 import { Text, View, H2, Card, CardItem, Button, Body, Item, Input } from 'native-base';
 
-// Components
-
 const StartGameScreen = props => {
     const [enteredValue, setEnteredValue] = useState('');
     const [selectedNumber, setSelectedNumber] = useState(0);

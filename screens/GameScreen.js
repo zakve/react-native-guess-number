@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Alert, ScrollView, SafeAreaView } from 'react-native';
 import { Card, Text, Button, View, List, ListItem } from 'native-base';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -42,7 +42,7 @@ const GameScreen = props => {
             return;
         }
 
-        // 
+        // setup guess limits
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
@@ -74,14 +74,13 @@ const GameScreen = props => {
                     </Button>
                 </View>
             </Card>
-            <View style={styles.listContainer}>
+            <SafeAreaView style={styles.listContainer}>
                 <ScrollView contentContainerStyle={styles.list}>
                     <List>
                         {pastGuesses.map((guess, index) => <ListItem key={index} style={styles.listContent}><Text>#{index + 1}</Text><Text>{guess}</Text></ListItem>)}
                     </List>
                 </ScrollView>
-            </View>
-
+            </SafeAreaView>
         </>
     )
 }

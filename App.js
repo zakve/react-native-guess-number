@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { AppLoading } from 'expo';
-import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 // UI native-base
-import { Container, Text, Button } from 'native-base';
+import { Container } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
