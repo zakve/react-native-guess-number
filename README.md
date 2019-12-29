@@ -2,8 +2,13 @@
 Build easy React Native game called "Guess number" based on Udemy course from Maximilian Schwarzmüller.
 
 > **STACK**
-> expo 35.0.0
-> native-base 2.13.8
+> - expo 35.0.0
+> - native-base 2.13.8
+
+> **Features**
+> - Hooks
+> - useState, useEffect
+> - Dynamic responsive calculation
 
 ## Demo
 ![StartGame](/assets/screenshots/StartGame.png)
